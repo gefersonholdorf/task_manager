@@ -13,6 +13,7 @@ import fastifyApiReference from "@scalar/fastify-api-reference";
 import { userRoutes } from "./routes/user-routes";
 import { authRoutes } from "./routes/auth-routes";
 import fastifyJwt from "@fastify/jwt";
+import { teamRoutes } from "./routes/teams-routes";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>();
 
@@ -56,6 +57,7 @@ app.register(fastifyJwt, {
 
 app.register(userRoutes);
 app.register(authRoutes);
+app.register(teamRoutes);
 
 const port = env.PORT;
 

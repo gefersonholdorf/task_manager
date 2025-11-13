@@ -24,6 +24,8 @@ export function isAuthenticated(app: FastifyInstance) {
 				id: userId,
 				role,
 			};
+
+			return;
 		} catch (error) {
 			console.log(error);
 			return reply.status(401).send({

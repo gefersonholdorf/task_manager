@@ -15,5 +15,7 @@ export function isAuthorized(roles: string[]) {
 				message: "You do not have permission.",
 			});
 		}
+
+		return;
 	};
 }
