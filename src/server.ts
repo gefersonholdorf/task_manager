@@ -11,12 +11,13 @@ import {
 import { env } from "./env";
 import fastifyApiReference from "@scalar/fastify-api-reference";
 import { userRoutes } from "./routes/user-routes";
+import { authRoutes } from "./routes/auth-routes";
+import fastifyJwt from "@fastify/jwt";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>();
 
 app.register(fastifyCors, {
 	origin: "*",
-	
 });
 app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
@@ -49,7 +50,12 @@ app.register(fastifyApiReference, {
 	routePrefix: "/docs",
 });
 
+app.register(fastifyJwt, {
+	secret: env.API_KEY,
+});
+
 app.register(userRoutes);
+app.register(authRoutes);
 
 const port = env.PORT;
 
