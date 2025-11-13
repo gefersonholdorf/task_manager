@@ -10,14 +10,14 @@ import {
 } from "fastify-type-provider-zod";
 import { env } from "./env";
 import fastifyApiReference from "@scalar/fastify-api-reference";
-import { route } from "./routes/route";
+import { userRoutes } from "./routes/user-routes";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>();
 
 app.register(fastifyCors, {
 	origin: "*",
+	
 });
-
 app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
 
@@ -49,7 +49,7 @@ app.register(fastifyApiReference, {
 	routePrefix: "/docs",
 });
 
-app.register(route);
+app.register(userRoutes);
 
 const port = env.PORT;
 
