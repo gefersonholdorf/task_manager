@@ -9,6 +9,8 @@ import {
 	type ZodTypeProvider,
 } from "fastify-type-provider-zod";
 import { env } from "./env";
+import fastifyApiReference from "@scalar/fastify-api-reference";
+import { route } from "./routes/route";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>();
 
@@ -42,6 +44,12 @@ app.register(fastifySwagger, {
 	transform: jsonSchemaTransform,
 	transformObject: jsonSchemaTransformObject,
 });
+
+app.register(fastifyApiReference, {
+	routePrefix: "/docs",
+});
+
+app.register(route);
 
 const port = env.PORT;
 
