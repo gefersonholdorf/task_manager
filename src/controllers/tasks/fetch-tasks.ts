@@ -1,3 +1,4 @@
+import type { FilteringTaskSchema } from "@/routes/task-routes";
 import type { PrismaClient, Task, User, Team } from "@prisma/client";
 import type { FastifyReply, FastifyRequest } from "fastify";
 
@@ -25,12 +26,15 @@ export class FetchTasksController {
 
 	async handle(request: FastifyRequest, reply: FastifyReply) {
 		const { id, role } = request.profile;
+		const { priority, status } = request.query as FilteringTaskSchema;
 
 		try {
 			if (role === "member") {
 				const tasks = await this.prisma.task.findMany({
 					where: {
 						assignedTo: id,
+						priority: priority || undefined,
+						status: status || undefined,
 					},
 					include: {
 						assignee: true,
@@ -44,6 +48,10 @@ export class FetchTasksController {
 			}
 
 			const tasks = await this.prisma.task.findMany({
+				where: {
+					priority: priority || undefined,
+					status: status || undefined,
+				},
 				include: {
 					assignee: true,
 					team: true,

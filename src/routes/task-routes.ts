@@ -28,6 +28,13 @@ export const updateTaskSchema = z.object({
 
 export type UpdateTaskSchema = z.infer<typeof updateTaskSchema>;
 
+export const filteringTaskSchema = z.object({
+	status: z.enum(["pending", "in_progress", "completed"]).optional(),
+	priority: z.enum(["high", "medium", "low"]).optional(),
+});
+
+export type FilteringTaskSchema = z.infer<typeof filteringTaskSchema>;
+
 export async function taskRoutes(app: FastifyInstance) {
 	const createTaskController = new CreateTaskController(prisma);
 	const fetchTasksController = new FetchTasksController(prisma);
@@ -73,6 +80,7 @@ export async function taskRoutes(app: FastifyInstance) {
 			schema: {
 				tags: ["Tasks"],
 				summary: "Fetch Tasks",
+				querystring: filteringTaskSchema,
 				response: {
 					200: z.object({
 						tasks: z.array(
