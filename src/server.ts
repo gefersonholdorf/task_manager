@@ -14,6 +14,7 @@ import { userRoutes } from "./routes/user-routes";
 import { authRoutes } from "./routes/auth-routes";
 import fastifyJwt from "@fastify/jwt";
 import { teamRoutes } from "./routes/teams-routes";
+import { teamMembersRoutes } from "./routes/team-members-routes";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>();
 
@@ -58,6 +59,7 @@ app.register(fastifyJwt, {
 app.register(userRoutes);
 app.register(authRoutes);
 app.register(teamRoutes);
+app.register(teamMembersRoutes);
 
 const port = env.PORT;
 
