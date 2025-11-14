@@ -19,6 +19,7 @@ export async function userRoutes(app: FastifyInstance) {
 		"/users",
 		{
 			schema: {
+				tags: ["Users"],
 				summary: "Create User",
 				body: createUserSchema,
 				response: {
