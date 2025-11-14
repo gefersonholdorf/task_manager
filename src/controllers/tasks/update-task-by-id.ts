@@ -28,6 +28,17 @@ export class UpdateTaskByIdController {
 
 			if (role === "member") {
 				if (task.assignedTo && task.assignedTo === userId) {
+					if (status !== task.status) {
+						await this.prisma.taskHistory.create({
+							data: {
+								taskId: Number(task.id),
+								changedBy: userId,
+								oldStatus: task.status,
+								newStatus: status,
+							},
+						});
+					}
+
 					await this.prisma.task.update({
 						data: {
 							title,
@@ -45,6 +56,18 @@ export class UpdateTaskByIdController {
 
 				return reply.status(403).send({
 					message: "You do not have permission.",
+				});
+			}
+
+			if (status !== task.status) {
+				console.log();
+				await this.prisma.taskHistory.create({
+					data: {
+						taskId: Number(task.id),
+						changedBy: userId,
+						oldStatus: task.status,
+						newStatus: status,
+					},
 				});
 			}
 
