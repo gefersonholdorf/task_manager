@@ -17,7 +17,7 @@ import { teamRoutes } from "./routes/teams-routes";
 import { teamMembersRoutes } from "./routes/team-members-routes";
 import { taskRoutes } from "./routes/task-routes";
 
-const app = fastify().withTypeProvider<ZodTypeProvider>();
+export const app = fastify().withTypeProvider<ZodTypeProvider>();
 
 app.register(fastifyCors, {
 	origin: "*",
@@ -62,9 +62,3 @@ app.register(authRoutes);
 app.register(teamRoutes);
 app.register(teamMembersRoutes);
 app.register(taskRoutes);
-
-const port = env.PORT;
-
-app.listen({ port, host: "0.0.0.0" }).then(() => {
-	console.log(`Application running on port ${port}!`);
-});

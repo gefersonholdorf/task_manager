@@ -3,8 +3,14 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx watch --env-file .env src/server.ts",
-    "hom": "tsx src/server.ts"
+    "dev": "tsx watch --env-file .env src/index.ts",
+    "seed": "dotenv -e .env.test -- tsx ./test/seed.ts",
+    "test:prep": "dotenv -e .env.test -- prisma migrate reset --force",
+    "test": "dotenv -e .env.test -- npm run test:prep && dotenv -e .env.test -- vitest --run",
+    "coverage": "dotenv -e .env.test -- npm run test:prep && dotenv -e .env.test -- vitest run --coverage"
+  },
+  "prisma": {
+    "seed": "dotenv -e .env.test -- tsx ./test/seed.ts"
   },
   "keywords": [],
   "author": "",
@@ -16,17 +22,27 @@
     "@fastify/swagger": "^9.6.1",
     "@prisma/client": "^6.19.0",
     "@scalar/fastify-api-reference": "^1.39.3",
+    "@types/supertest": "^6.0.3",
     "bcryptjs": "^3.0.3",
     "dotenv": "^17.2.3",
     "fastify": "^5.6.2",
     "fastify-type-provider-zod": "^6.1.0",
+    "supertest": "^7.1.4",
     "tsx": "^4.20.6",
     "zod": "^4.1.12"
   },
   "devDependencies": {
     "@biomejs/biome": "2.3.5",
+    "@types/jest": "^30.0.0",
     "@types/node": "^24.10.1",
+    "@vitest/coverage-v8": "^3.2.4",
+    "dotenv-cli": "^11.0.0",
+    "jest": "^29.7.0",
     "prisma": "^6.19.0",
-    "typescript": "^5.9.3"
+    "ts-jest": "^29.4.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3",
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "^3.2.4"
   }
 }
