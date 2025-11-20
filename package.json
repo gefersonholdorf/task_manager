@@ -4,13 +4,13 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsx watch --env-file .env src/index.ts",
-    "seed": "dotenv -e .env.test -- tsx ./test/seed.ts",
+    "seed": "dotenv -e .env.test -- tsx ./src/test/seed.ts",
     "test:prep": "dotenv -e .env.test -- prisma migrate reset --force",
     "test": "dotenv -e .env.test -- npm run test:prep && dotenv -e .env.test -- vitest --run",
     "coverage": "dotenv -e .env.test -- npm run test:prep && dotenv -e .env.test -- vitest run --coverage"
   },
   "prisma": {
-    "seed": "dotenv -e .env.test -- tsx ./test/seed.ts"
+    "seed": "dotenv -e .env.test -- tsx ./src/test/seed.ts"
   },
   "keywords": [],
   "author": "",
@@ -28,6 +28,7 @@
     "fastify": "^5.6.2",
     "fastify-type-provider-zod": "^6.1.0",
     "supertest": "^7.1.4",
+    "tsconfig-paths": "^4.2.0",
     "tsx": "^4.20.6",
     "zod": "^4.1.12"
   },

@@ -15,7 +15,7 @@ export default defineConfig({
 		reporters: ["verbose"],
 
 		// Arquivo de setup (antes de todos os testes)
-		setupFiles: ["./test/setup.ts"],
+		setupFiles: ["./src/test/setup.ts"],
 
 		// Coverage
 		coverage: {
